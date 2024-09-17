@@ -48,7 +48,7 @@ contract LudoContract {
         return false;
     }
 
-    // Register Player
+    // Register a new player
     function registerPlayer() external {
         require(
             playersArray.length < MAX_PLAYERS,
@@ -70,14 +70,16 @@ contract LudoContract {
         }
     }
 
-    // Dice rolling function (simulates a 6-sided dice roll)
+    // roll dice function 
     function rollDice() external view returns (uint) {
         _gameStarted();
         _currentTurn();
         _onlyPlayer();
+
         uint diceResult = (uint(
             keccak256(abi.encodePacked(block.timestamp, msg.sender))
         ) % 6) + 1;
+        
         return diceResult;
     }
 
